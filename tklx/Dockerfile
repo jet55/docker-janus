@@ -52,6 +52,7 @@ ARG JANUS_BUILD_DEPS_EXT="\
     cmake \
     ca-certificates \
     curl \
+    gtk-doc-tools \
     "
 ARG JANUS_LIBNICE_VERSION="5496500b1535d9343fdac2a3408864643fe65d7e"
 ARG JANUS_VERSION="v0.4.5"
