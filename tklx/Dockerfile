@@ -88,7 +88,7 @@ RUN \
     && if [ $JANUS_WITH_PFUNIX = "0" ]; then export JANUS_CONFIG_OPTIONS="$JANUS_CONFIG_OPTIONS --disable-unix-sockets"; fi \
     && if [ $JANUS_WITH_RABBITMQ = "0" ]; then export JANUS_CONFIG_OPTIONS="$JANUS_CONFIG_OPTIONS --disable-rabbitmq"; fi \
     && /usr/sbin/groupadd -r janus && /usr/sbin/useradd -r -g janus janus \
-    && DEBIAN_FRONTEND=noninteractive deb http://ftp.debian.org/debian jessie-backports main \
+    && echo "deb http://ftp.debian.org/debian jessie-backports main" | sudo tee /etc/apt/sources.list.d/backports.list \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install $JANUS_BUILD_DEPS_DEV ${JANUS_BUILD_DEPS_EXT} \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends -t jessie-backports install ${JANUS_BUILD_DEPS_BACKPORTS} \
