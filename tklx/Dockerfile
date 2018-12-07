@@ -31,6 +31,7 @@ ARG JANUS_CONFIG_DEPS="\
 ARG JANUS_CONFIG_OPTIONS="\
     "
 ARG JANUS_BUILD_DEPS_DEV="\
+    libcurl4-openssl-dev \
     libjansson-dev \
     libssl-dev \
     libsofia-sip-ua-dev \
