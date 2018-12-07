@@ -31,7 +31,6 @@ ARG JANUS_CONFIG_DEPS="\
 ARG JANUS_CONFIG_OPTIONS="\
     "
 ARG JANUS_BUILD_DEPS_DEV="\
-    libcurl4-openssl-dev \
     libjansson-dev \
     libssl-dev \
     libsofia-sip-ua-dev \
@@ -53,11 +52,9 @@ ARG JANUS_BUILD_DEPS_EXT="\
     curl \
     gtk-doc-tools \
     "
-ARG JANUS_BUILD_DEPS_BACKPORTS="\
-    libglib2.0-dev \
-    "
 ARG JANUS_BUILD_DEPS_STRETCH="\
     libcurl4-openssl-dev \
+    libglib2.0-dev \
     "
 ARG JANUS_LIBNICE_VERSION="5496500b1535d9343fdac2a3408864643fe65d7e"
 ARG JANUS_VERSION="v0.4.5"
@@ -91,11 +88,9 @@ RUN \
     && if [ $JANUS_WITH_PFUNIX = "0" ]; then export JANUS_CONFIG_OPTIONS="$JANUS_CONFIG_OPTIONS --disable-unix-sockets"; fi \
     && if [ $JANUS_WITH_RABBITMQ = "0" ]; then export JANUS_CONFIG_OPTIONS="$JANUS_CONFIG_OPTIONS --disable-rabbitmq"; fi \
     && /usr/sbin/groupadd -r janus && /usr/sbin/useradd -r -g janus janus \
-    && echo "deb http://ftp.debian.org/debian jessie-backports main" | tee /etc/apt/sources.list.d/backports.list \
     && echo "deb http://ftp.debian.org/debian stretch main" | tee /etc/apt/sources.list.d/stretch.list \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install $JANUS_BUILD_DEPS_DEV ${JANUS_BUILD_DEPS_EXT} \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends -t jessie-backports install ${JANUS_BUILD_DEPS_BACKPORTS} \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends -t stretch install ${JANUS_BUILD_DEPS_STRETCH} \
 # build libnice
     && git clone https://gitlab.freedesktop.org/libnice/libnice ${BUILD_SRC}/libnice \
